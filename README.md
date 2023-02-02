@@ -1,4 +1,4 @@
-# Geometrix v0
+# Geometrix (v0)
 Automatic geometry problem solver in the shape of a Python library
 
 ## About the project
