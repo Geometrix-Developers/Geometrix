@@ -1,7 +1,7 @@
 # ![Geometrix Logo](https://i.ibb.co/vXb8Tbs/download-3.png)
 
 
-<center> # Geometrix (v0.0.0) </center>
+# <center> Geometrix (v0.0.0) </center>
 
 
 Automatic geometry problem solver in the shape of a Python library
