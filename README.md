@@ -14,3 +14,8 @@ Very early (no releases)
 4. Copy the full path to the `.whl` file in the `dist` directory you just created
 5. Run `pip install full/path/to/wheelfile.whl` wherever you woul like to use this package
 6. Include `import Geometrix` in your code to import the library
+
+## Quick Start Guide (Brief Reference)
+1. Create a `GeometrixWorkfield` instance using field = Geomterix.GeometrixWorkfield()
+2. Add a point using `field.add_point(x, y)`, which will return a point ID. No more than 1000 can be created on one field.
+3. Connect two points with a line using `add_line(point1_index, point2_index)`, which will return a line ID. No more than 1000 can be created on one field.
