@@ -1,4 +1,4 @@
-# ![Geometrix Logo](https://i.ibb.co/4TL1wQV/Geometrix-1-0.png) Geometrix (v0.0.0)
+# ![Geometrix Logo](https://i.ibb.co/Q8ST0QK/Geometrix-3-10.png) Geometrix (v0.0.0)
 Automatic geometry problem solver in the shape of a Python library
 
 ## About the project
