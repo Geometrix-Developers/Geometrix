@@ -7,7 +7,7 @@ Geometrix is a Python library that allows its users to input conditions of a mat
 ## Development Stage
 Very early (no releases)
 
-## Installation Guide -- pre-relase
+## Installation Guide (pre-release)
 1. Clone this git repository to your device
 2. Install twine, wheel, setuptools
 3. Run `python setup.py bdist_wheel`
