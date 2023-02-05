@@ -2,7 +2,7 @@ from Geometrix.point import Point
 from Geometrix.line import Line
 
 
-class GeometrixWorkfield:
+class Workfield:
     def __init__(self):
         self.points = []
         self.lines = []
