@@ -1,4 +1,9 @@
-# Geometrix (v0.0.0)
+# ![Geometrix Logo](https://i.ibb.co/vXb8Tbs/download-3.png)
+
+
+# <center> Geometrix (v0.0.0) </center>
+
+
 Automatic geometry problem solver in the shape of a Python library
 
 ## About the project
@@ -18,4 +23,4 @@ Very early (no releases)
 ## Quick Start Guide (Brief Reference)
 1. Create a `GeometrixWorkfield` instance using field = Geomterix.GeometrixWorkfield()
 2. Add a point using `field.add_point(x, y)`, which will return a point ID. No more than 1000 can be created on one field.
-3. Connect two points with a line using `add_line(point1_index, point2_index)`, which will return a line ID. No more than 1000 can be created on one field.
+3. Connect two points with a line using `field.add_line(point1_index, point2_index)`, which will return a line ID. No more than 1000 can be created on one field.
