@@ -1,6 +1,7 @@
 from Geometrix.point import Point
 from Geometrix.line import Line
 
+
 class GeometrixWorkfield:
     def __init__(self):
         self.points = []
@@ -16,7 +17,7 @@ class GeometrixWorkfield:
         point = Point(x, y, len(self.points))
         self.points.append(point)
 
-        return f"Created point with ID: {point.id}"
+        return point
 
     def add_line(self, point1_index, point2_index):
         """
@@ -37,5 +38,5 @@ class GeometrixWorkfield:
         line = Line(point1, point2, len(self.lines))
         self.lines.append(line)
 
-        return f"Created line with ID: {line.id}"
+        return line
 
