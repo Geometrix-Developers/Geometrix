@@ -1,3 +1,5 @@
 /.idea
 /.pytest_cache
 /Geometrix.egg-info
+/Tests
+/__pycache__
