@@ -21,7 +21,7 @@ Very early (no releases)
 6. Include `import Geometrix` in your code to import the library
 
 ## Quick Start Guide (Brief Reference)
-1. Create a `GeometrixWorkfield` instance using `field = Geometerix.Workfield()`
+1. Create a `Workfield` instance using `field = Geometerix.Workfield()`
 2. Add a point using `field.add_point(x, y)`, which will return a point object. No more than 1000 can be created on one field.
 3. Connect two points with a line using `field.add_line(point1_index, point2_index)`, which will return a line object. No more than 1000 can be created on one field.
 4. Quickly connect three points using `field.add_triangle(point1_index, point2_index, point3_index)`, which will return a list of three line objects.
