@@ -1,11 +1,13 @@
 from Geometrix.point import Point
 from Geometrix.line import Line
+from Geometrix.circle import Circle
 
 
 class Workfield:
     def __init__(self):
         self.points = []
         self.lines = []
+        self.circles = []
 
     def add_point(self, x, y):
         """
@@ -77,7 +79,7 @@ class Workfield:
     def add_quadrilateral(self, p1_id, p2_id, p3_id, p4_id):
         """
         add_triangle function - connects three points
-        - requires IDs of points
+        - requires IDs of points (in the order they should be connected)
         - returns list of three line objects
         """
 
@@ -97,22 +99,36 @@ class Workfield:
         except:
             raise RuntimeError("Point not found")
 
+        self.points[p1_id].connect(point2)
+        self.points[p2_id].connect(point1)
+        line1 = Line(point1, point2, len(self.lines))
+
+        self.points[p2_id].connect(point3)
+        self.points[p3_id].connect(point2)
+        line2 = Line(point2, point3, len(self.lines))
+
+        self.points[p3_id].connect(point4)
+        self.points[p4_id].connect(point3)
+        line3= Line(point3, point4, len(self.lines))
+
+        self.points[p4_id].connect(point1)
+        self.points[p1_id].connect(point4)
+        line4 = Line(point4, point1, len(self.lines))
+
+        return [line1, line2, line3, line4]
+
+    def add_circle(self, centre_point_id, radius):
         """
-        for point1_id in point_ids:
-            for point2_id in point_ids:
-                if not point1_id == point2_id:
-                    self.points[point1_id].connect(point2_id)
-
-        return_list = []
-        for point1_obj in points:
-            for point2_obj in points:
-                if point2_obj != point1_obj:
-                    line = Line(point1, point2, len(self.lines))
-                    self.lines.append(line)
-                    return_list.append(line) 
-
-        return return_list 
+        add_circle function - adds a circle
+        - requires centre point Id
+        - requires radius
+        - returns new circle object
         """
 
-        return None # for now, due to lack of algorithm of line creation
+        try:
+            centre = self.points[centre_point_id]
+        except:
+            raise RuntimeError("Centre point not found")
 
+        circle = Circle(centre, radius, len(self.circles))
+        return circle
