@@ -7,5 +7,6 @@ Plan:
 - [x] add support of points
 - [x] add support of lines
 - [x] grouping of points into triangles
-- [ ] grouping of points into quadrilaterals
-- [ ] drawing circles
+- [x] grouping of points into quadrilaterals
+- [x] drawing circles
+- [ ] documenting current progress
