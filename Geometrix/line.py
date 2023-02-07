@@ -8,9 +8,5 @@ class Line:
     def __init__(self, point1, point2, id):
         self.point_1 = point1
         self.point_2 = point2
-
-        if id > 1000: # limits number of lines to 1000
-            raise RuntimeError("No more than 1000 lines can be created")
-        else:
-            self.id = id
+        self.id = id
 
