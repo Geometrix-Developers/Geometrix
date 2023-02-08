@@ -4,6 +4,15 @@ from Geometrix.circle import Circle
 
 
 class Workfield:
+    """
+    Class which describes a workfield; the main class of the package, stores every object and links every object together.
+
+    This class serves the purpose of the engine of the program. Every add-type function in this class modifies the data stored in it. This means that even if you run an add-type function and do not write its return value in a variable, the newly created or modified would still be stored or saved in the workfield instance.
+
+    :param points[]: list of all :obj:`~point.Point` objects on the workfield
+    :param lines[]: list of all :obj:`~line.Line` objects on the workfield
+    :param circles[]: list of all :obj:`~circle.Circle` objects on the workfield
+    """
     def __init__(self):
         self.points = []
         self.lines = []
@@ -11,9 +20,11 @@ class Workfield:
 
     def add_point(self, x, y):
         """
-        add_point function - adds a point
-        - requires coordinates
-        - return point object
+        Function to add a point to the workfield.
+
+        :param x: x-coordinate of the point
+        :param y: y-coordinate of the point
+        :return: newly created :class:`~point.Point` object
         """
 
         point = Point(x, y, len(self.points))
@@ -23,9 +34,10 @@ class Workfield:
 
     def add_line(self, point1_index, point2_index):
         """
-        add_line function - connects two points
-        - requires points IDs
-        - returns line object
+        Function to add a line to the workfield.
+        :param point1_index: ID of the first :class:`~point.Point`
+        :param point2_index: ID of the second :class:`~point.Point`
+        :return: newly created :class:`~line.Line` object
         """
 
         try:
@@ -44,9 +56,12 @@ class Workfield:
 
     def add_triangle(self, p1_id, p2_id, p3_id):
         """
-        add_triangle function - connects three points
-        - requires IDs of points
-        - returns list of three line objects
+        Function to quickly connect three points to each other, forming a triangle.
+
+        :param p1_id: ID of the first :class:`~point.Point`
+        :param p2_id: ID of the second :class:`~point.Point`
+        :param p3_id: ID of the third :class:`~point.Point`
+        :return: list of three newly created :class:`~line.Line` objects
         """
 
         for line in self.lines:
@@ -78,9 +93,15 @@ class Workfield:
 
     def add_quadrilateral(self, p1_id, p2_id, p3_id, p4_id):
         """
-        add_triangle function - connects three points
-        - requires IDs of points (in the order they should be connected)
-        - returns list of three line objects
+        Function to quickly connect four points to each other, forming a quadrilateral.
+
+        The points will be connected in the order they're given it.
+
+        :param p1_id: ID of the first :class:`~point.Point`
+        :param p2_id: ID of the second :class:`~point.Point`
+        :param p3_id: ID of the third :class:`~point.Point`
+        :param p4_id: ID of the fourth :class:`~point.Point`
+        :return: list of four newly created :class:`~line.Line` objects
         """
 
         point_ids = [p1_id, p2_id, p3_id, p4_id]
@@ -119,10 +140,11 @@ class Workfield:
 
     def add_circle(self, centre_point_id, radius):
         """
-        add_circle function - adds a circle
-        - requires centre point Id
-        - requires radius
-        - returns new circle object
+        Function to draw a circle on the workfield.
+
+        :param centre_point_id: ID of the centre :class:`~point.Point` object (point needs to be created beforehand)
+        :param radius: radius of the circle
+        :return: newly created :class:`~circle.Circle` object
         """
 
         try:

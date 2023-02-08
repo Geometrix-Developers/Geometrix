@@ -1,12 +1,18 @@
+import math
+
+
 class Line:
     """
-    Line Class - describes a line connecting two points
+    Class that describes a line
 
-    - has attributes of the two points it connects
-    - has an ID
+    :param point1: first :class:`~point.Point`
+    :param point2: point to connect the first :class:`~point.Point` to
+    :param id: ID of the line
     """
+
     def __init__(self, point1, point2, id):
         self.point_1 = point1
         self.point_2 = point2
         self.id = id
+
 
