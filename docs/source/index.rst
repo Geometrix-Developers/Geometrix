@@ -5,7 +5,7 @@
 
 Geometrix
 =========
-Welcome to the documentation of Geometrix, the Python library that solves geometrical problems.
+Welcome to the documentation and information of Geometrix, the Python library that solves geometrical problems.
 
 .. attention:: The library is a work in progress, and there isn't a stable release yet.
 
@@ -15,7 +15,7 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-
+   about.rst
    quickstart.rst
    guides.rst
    reference.rst
