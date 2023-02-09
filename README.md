@@ -3,6 +3,9 @@
 
 # <center> Geometrix (v0.0.0) </center>
 
+![image]({https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue}) 
+![image]({https://img.shields.io/badge/PyCharm-000000.svg?&style=for-the-badge&logo=PyCharm&logoColor=white}) 
+![image]({https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white}) 
 
 Automatic geometry problem solver in the shape of a Python library
 
@@ -20,8 +23,6 @@ Very early (no releases)
 5. Run `pip install full/path/to/wheelfile.whl` wherever you woul like to use this package
 6. Include `import Geometrix` in your code to import the library
 
-## Quick Start Guide (Brief Reference)
-1. Create a `Workfield` instance using `field = Geometerix.Workfield()`
-2. Add a point using `field.add_point(x, y)`, which will return a point object. No more than 1000 can be created on one field.
-3. Connect two points with a line using `field.add_line(point1_index, point2_index)`, which will return a line object. No more than 1000 can be created on one field.
-4. Quickly connect three points using `field.add_triangle(point1_index, point2_index, point3_index)`, which will return a list of three line objects.
+## Documentation
+You can find the full documentation for the current stable version [here](https://geometrix-developers.github.io/Geometrix-Website/html/index.html).
+
