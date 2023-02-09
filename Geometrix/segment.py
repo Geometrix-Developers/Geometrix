@@ -1,7 +1,7 @@
 import math
 
 
-class Line:
+class Segment:
     """
     Class that describes a line
 

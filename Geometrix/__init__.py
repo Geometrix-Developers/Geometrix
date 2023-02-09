@@ -1,5 +1,5 @@
 from Geometrix.point import Point
-from Geometrix.line import Line
+from Geometrix.segment import Segment
 from Geometrix.circle import Circle
 from Geometrix.infline import Infline
 import math
@@ -16,7 +16,7 @@ class Workfield:
     """
     def __init__(self):
         self.points = []
-        self.lines = []
+        self.segments = []
         self.circles = []
         self.inflines = []
 
@@ -34,12 +34,12 @@ class Workfield:
 
         return point
 
-    def add_line(self, point1_index, point2_index):
+    def add_segment(self, point1_index, point2_index):
         """
-        Function to add a line to the workfield.
+        Function to add a segment to the workfield.
         :param point1_index: ID of the first :class:`~point.Point`
         :param point2_index: ID of the second :class:`~point.Point`
-        :return: newly created :class:`~line.Line` object
+        :return: newly created :class:`~line.Segment` object
         """
 
         try:
@@ -51,10 +51,10 @@ class Workfield:
         self.points[point1_index].connect(point2)
         self.points[point2_index].connect(point1)
 
-        line = Line(point1, point2, len(self.lines))
-        self.lines.append(line)
+        segment = Segment(point1, point2, len(self.segments))
+        self.segments.append(segment)
 
-        return line
+        return segment
 
     def add_triangle(self, p1_id, p2_id, p3_id):
         """
@@ -63,10 +63,10 @@ class Workfield:
         :param p1_id: ID of the first :class:`~point.Point`
         :param p2_id: ID of the second :class:`~point.Point`
         :param p3_id: ID of the third :class:`~point.Point`
-        :return: list of three newly created :class:`~line.Line` objects
+        :return: list of three newly created :class:`~line.Segment` objects
         """
 
-        for line in self.lines:
+        for line in self.segments:
             if [p1_id, p2_id] in [line.point_1.id, line.point_2.id] or [p1_id, p3_id] in [line.point_1.id, line.point_2.id] or [p3_id, p2_id] in [line.point_1.id, line.point_2.id]:
                 raise RuntimeError("One or more lines of the triangle appear to already present.")
 
@@ -84,12 +84,12 @@ class Workfield:
         self.points[p3_id].connect(point1)
         self.points[p3_id].connect(point2)
 
-        line1 = Line(point1, point2, len(self.lines))
-        self.lines.append(line1)
-        line2 = Line(point2, point3, len(self.lines))
-        self.lines.append(line2)
-        line3 = Line(point1, point3, len(self.lines))
-        self.lines.append(line3)
+        line1 = Segment(point1, point2, len(self.segments))
+        self.segments.append(line1)
+        line2 = Segment(point2, point3, len(self.segments))
+        self.segments.append(line2)
+        line3 = Segment(point1, point3, len(self.segments))
+        self.segments.append(line3)
 
         return [line1, line2, line3]
 
@@ -107,7 +107,7 @@ class Workfield:
         """
 
         point_ids = [p1_id, p2_id, p3_id, p4_id]
-        for line in self.lines:
+        for line in self.segments:
             for point_id in point_ids:
                 for linepoint_id in [line.point_1.id, line.point_2.id]:
                     if point_id == linepoint_id:
@@ -124,19 +124,19 @@ class Workfield:
 
         self.points[p1_id].connect(point2)
         self.points[p2_id].connect(point1)
-        line1 = Line(point1, point2, len(self.lines))
+        line1 = Segment(point1, point2, len(self.segments))
 
         self.points[p2_id].connect(point3)
         self.points[p3_id].connect(point2)
-        line2 = Line(point2, point3, len(self.lines))
+        line2 = Segment(point2, point3, len(self.segments))
 
         self.points[p3_id].connect(point4)
         self.points[p4_id].connect(point3)
-        line3= Line(point3, point4, len(self.lines))
+        line3= Segment(point3, point4, len(self.segments))
 
         self.points[p4_id].connect(point1)
         self.points[p1_id].connect(point4)
-        line4 = Line(point4, point1, len(self.lines))
+        line4 = Segment(point4, point1, len(self.segments))
 
         return [line1, line2, line3, line4]
 
