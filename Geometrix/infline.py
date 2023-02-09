@@ -25,7 +25,8 @@ class Infline:
     def get_angle(self):
         """
         Function to find the angle from vertical and clockwise of the infline.
-        :return: angle
+
+        :return: angle of the line
         """
 
         if self.type == 0:

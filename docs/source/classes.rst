@@ -10,13 +10,18 @@ Points
 
 Lines
 -----
-.. automodule:: Geometrix.line
+.. automodule:: Geometrix.segment
    :members:
 
 Circles
 -------
 .. automodule:: Geometrix.circle
     :members:
+
+Inflines
+--------
+.. automodule:: Geometrix.infline
+   :members:
 
 
 

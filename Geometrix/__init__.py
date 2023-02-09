@@ -4,6 +4,7 @@ from Geometrix.circle import Circle
 from Geometrix.infline import Infline
 import math
 
+
 class Workfield:
     """
     Class which describes a workfield; the main class of the package, stores every object and links every object together.
