@@ -3,11 +3,16 @@
 
 # <center> Geometrix (v0.0.0) </center>
 
-![image](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue) 
-![image](https://img.shields.io/badge/PyCharm-000000.svg?&style=for-the-badge&logo=PyCharm&logoColor=white) 
-![image](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white) 
 
-Automatic geometry problem solver in the shape of a Python library
+![image](https://badgen.net/badge/Made%20with/Python/blue?icon=python)
+![image](https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg)
+![image](https://img.shields.io/github/issues/Geometrix-Developers/Geometrix.svg)
+![image](https://img.shields.io/github/license/Geometrix-Developers/Geometrix.svg)
+![image](https://badgen.net/discord/members/7P6Gc7wh4E)
+![image](https://badgen.net/github/last-commit/Geometrix-Developers/Geometrix/main)
+
+
+Automatic geometry problem solver in the shape of a Python library.
 
 ## About the project
 Geometrix is a Python library that allows its users to input conditions of a maths problem, what the problem requires to find, and then finds the answer to the problem, checking what it can do and calculate using geometric theorems step-by-step, and eventually (if the problem is solvable) reaches an answer. This project was believed to be helpful to those struggling with easy and intermediate geometry, and make solving of simple, every-day work problems for mathematicians and engineers faster and less time-consuming, and for them not to be required to solve the problem themselves, to save time. The idea to integrate it into a Python library was from the belief it can have a wider range of uses in this format, and can be made into an application, a web app or any other form. 
