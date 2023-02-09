@@ -1,6 +1,7 @@
 from Geometrix.point import Point
 from Geometrix.line import Line
 from Geometrix.circle import Circle
+from Geometrix.infline import Infline
 import math
 
 class Workfield:
@@ -17,6 +18,7 @@ class Workfield:
         self.points = []
         self.lines = []
         self.circles = []
+        self.inflines = []
 
     def add_point(self, x, y):
         """
@@ -176,5 +178,51 @@ class Workfield:
         new_point = Point(anchor_point.x + horizontal_leg, anchor_point.y + vertical_leg, len(self.points))
         self.points.append(new_point)
         return new_point
+
+    def add_infline(self, type, *args):
+        """
+        Function to add a new :obj:`infline.Infline` object
+
+        :param type: type of infline - either point and angle-based, or two-point based (0 or 1)
+        :param args: if `type == 0`, `args[0]` should be the centre point ID, and `args[1]` should be the angle. If `type == 1` , `args[0]` and `args[1]` should be IDs of two points.
+        :return: new :obj:`infline.Infline` object
+        """
+
+
+        if str(type) in ["0", "angle"]:
+            type = 0
+        elif str(type) in ["1", "points", "two points"]:
+            type = 1
+        else:
+            raise RuntimeError("Type must either be 0, '0', 'angle' for angle-based inflines, or 1, '1', 'points', 'two points' for point-based inflines.")
+
+        if type == 0:
+            centre_point_id = args[0]
+            angle = args[1]
+
+            try:
+                centre_point = self.points[centre_point_id]
+            except:
+                raise RuntimeError("Point not found")
+
+            new_infline = Infline(type, centre_point, angle, len(self.inflines))
+            self.inflines.append(new_infline)
+            return new_infline
+
+
+        else:
+            p1_id = args[0]
+            p2_id = args[1]
+            try:
+                point1 = self.points[p1_id]
+                point2 = self.points[p2_id]
+            except:
+                raise RuntimeError("Point(s) not found")
+
+            new_infline = Infline(type, point1, point2, len(self.inflines))
+            self.inflines.append(new_infline)
+            return new_infline
+
+
 
 
