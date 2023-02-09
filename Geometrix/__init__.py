@@ -1,7 +1,7 @@
 from Geometrix.point import Point
 from Geometrix.line import Line
 from Geometrix.circle import Circle
-
+import math
 
 class Workfield:
     """
@@ -154,3 +154,27 @@ class Workfield:
 
         circle = Circle(centre, radius, len(self.circles))
         return circle
+
+    def add_point_angle_distance(self, anchor_point_id, angle, distance):
+        """
+        Function to add a point from a certain distance, and at a certain angle from the anchor point.
+
+        :param anchor_point_id: ID of the anchor point
+        :param angle: at what angle the point should be from the anchor point
+        :param distance: how far away the point should be
+        :return: new :obj:`point.Point` object
+        """
+
+        horizontal_leg = math.sin(math.radians(angle)) * distance
+        vertical_leg = math.cos(math.radians(angle)) * distance
+
+        try:
+            anchor_point = self.points[anchor_point_id]
+        except:
+            raise RuntimeError("Point not found")
+
+        new_point = Point(anchor_point.x + horizontal_leg, anchor_point.y + vertical_leg, len(self.points))
+        self.points.append(new_point)
+        return new_point
+
+
