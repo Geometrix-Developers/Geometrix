@@ -3,9 +3,9 @@
 
 # <center> Geometrix (v0.0.0) </center>
 
-![image]({https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue}) 
-![image]({https://img.shields.io/badge/PyCharm-000000.svg?&style=for-the-badge&logo=PyCharm&logoColor=white}) 
-![image]({https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white}) 
+![image](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue) 
+![image](https://img.shields.io/badge/PyCharm-000000.svg?&style=for-the-badge&logo=PyCharm&logoColor=white) 
+![image](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white) 
 
 Automatic geometry problem solver in the shape of a Python library
 
