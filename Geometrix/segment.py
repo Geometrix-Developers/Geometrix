@@ -1,6 +1,3 @@
-import math
-
-
 class Segment:
     """
     Class that describes a line
@@ -14,5 +11,3 @@ class Segment:
         self.point_1 = point1
         self.point_2 = point2
         self.id = id
-
-

@@ -18,7 +18,7 @@ class Point:
         self.connected_to = []  # list of connected points
         self.id = id
 
-    def connect(self, point:Point):
+    def connect(self, point: Point):
         """
         Function that adds another :class:`~point.Point` to this point's :obj:`connected_to[]`. Not designed to connect :class:`~point.Point` objects, use :obJ:`Workfield.add_line()` instead.
 
@@ -26,5 +26,3 @@ class Point:
         :return: nothing
         """
         self.connected_to.append(point)
-
-

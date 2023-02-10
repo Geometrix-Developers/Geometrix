@@ -119,7 +119,6 @@ class Workfield:
             point2 = self.points[p2_id]
             point3 = self.points[p3_id]
             point4 = self.points[p4_id]
-            points = [point1, point2, point3, point4]
         except:
             raise RuntimeError("Point not found")
 
@@ -133,7 +132,7 @@ class Workfield:
 
         self.points[p3_id].connect(point4)
         self.points[p4_id].connect(point3)
-        line3= Segment(point3, point4, len(self.segments))
+        line3 = Segment(point3, point4, len(self.segments))
 
         self.points[p4_id].connect(point1)
         self.points[p1_id].connect(point4)
@@ -184,11 +183,12 @@ class Workfield:
         """
         Function to add a new :obj:`infline.Infline` object
 
+        Does not connect two points if type 1 is used!
+
         :param type: type of infline - either point and angle-based, or two-point based (0 or 1)
         :param args: if `type == 0`, `args[0]` should be the centre point ID, and `args[1]` should be the angle. If `type == 1` , `args[0]` and `args[1]` should be IDs of two points.
         :return: new :obj:`infline.Infline` object
         """
-
 
         if str(type) in ["0", "angle"]:
             type = 0
@@ -210,7 +210,6 @@ class Workfield:
             self.inflines.append(new_infline)
             return new_infline
 
-
         else:
             p1_id = args[0]
             p2_id = args[1]
@@ -224,6 +223,102 @@ class Workfield:
             self.inflines.append(new_infline)
             return new_infline
 
+    def auto_triangle(self, type, *args):
+        """
+        Function to automatically create an isosceles (type 0), equilateral (type 1) or right-angled (type 2) triangle.
 
+        The given point is automatically taken as the bottom left of the triangle, and the entire body of the triangle, in all three types, is created in x and y coordinates higher than the ones of the given point. One of the two newly created points will lie on the same y-coordinate as the given point, and the other will be above.
+        :param type: Type of triangle (0, 1 ,2)
+        :param args: Type 0: ID of bottom left point, size of the equal angles, lengths of equal sides; Type 1: If of bottom left point, side length; Type 2: ID of bottom left point, horizontal side length, vertical side length
+        :return: two lists nested in the main list, like this: [[new_point1 (top), new_point2 (bottom right)], [new_segment_1 (given point -> top), new_segment2 (top -> bottom right), new_segment3 (bottom_right -> given point]]
+        """
+        if type in ["isosceles", 0, "0"]:
+            bottom_left_point_id = args[0]
+            equal_angles = args[1]
+            equal_side_lengths = args[2]
+            horizontal_side_length = math.sqrt(2*(equal_side_lengths ** 2) - 2*(equal_side_lengths**2)*math.cos(180-2*equal_angles))
 
+            try:
+                anchor_point = self.points[bottom_left_point_id]
+            except:
+                raise RuntimeError("Point not found")
 
+            bottom_right_point = Point(anchor_point.x, anchor_point.y+horizontal_side_length, len(self.points))
+            height = math.sqrt(equal_side_lengths ** 2 - ((horizontal_side_length/2) ** 2))
+            top_point = Point(anchor_point.x+horizontal_side_length/2, anchor_point.y+height, len(self.points))
+
+            seg1 = Segment(anchor_point, top_point, len(self.segments))
+            seg2 = Segment(top_point, bottom_right_point, len(self.segments))
+            seg3 = Segment(bottom_right_point, anchor_point, len(self.segments))
+
+            for segment in [seg1, seg2, seg3]:
+                self.segments.append(segment)
+
+            self.points[bottom_left_point_id].connect(top_point)
+            top_point.connect(bottom_right_point)
+            bottom_right_point.connect(anchor_point)
+
+            self.points.append(top_point)
+            self.points.append(bottom_right_point)
+
+            return [[top_point, bottom_right_point], [seg1, seg2, seg3]]
+
+        elif type in ["equilateral", 1, "1"]:
+            bottom_left_point_id = args[0]
+            side_length = args[1]
+
+            try:
+                anchor_point = self.points[bottom_left_point_id]
+
+            except:
+                raise RuntimeError("Point not found")
+
+            bottom_right_point = Point(anchor_point.x, anchor_point.y+side_length, len(self.points))
+            top_point = Point(anchor_point.x+side_length/2, anchor_point.y+math.sqrt(side_length**2-(side_length/2)**2), len(self.points))
+
+            segs = [1, 2, 3]
+            segs[0] = Segment(anchor_point, top_point, len(self.segments))
+            segs[1] = Segment(top_point, bottom_right_point, len(self.segments))
+            segs[2] = Segment(bottom_right_point, anchor_point, len(self.segments))
+
+            for segment in segs:
+                self.segments.append(segment)
+
+            self.points[bottom_left_point_id].connect(top_point)
+            top_point.connect(bottom_right_point)
+            bottom_right_point.connect(anchor_point)
+
+            self.points.append(top_point)
+            self.points.append(bottom_right_point)
+
+            return [[top_point, bottom_right_point], segs]
+
+        elif type in ["right-angled", 2, "2"]:
+            bottom_left_point_id = args[0]
+            horizontal_side_length = args[1]
+            vertical_side_length = args[2]
+
+            try:
+                anchor_point = self.points[bottom_left_point_id]
+
+            except:
+                raise RuntimeError("Point not found")
+
+            top_point = Point(anchor_point.x, anchor_point.y+vertical_side_length, len(self.points))
+            bottom_right_point = Point(anchor_point.x+horizontal_side_length, anchor_point.y, len(self.points))
+
+            self.points[bottom_left_point_id].connect(top_point)
+            top_point.connect(bottom_right_point)
+            bottom_right_point.connect(anchor_point)
+
+            self.points.append(top_point)
+            self.points.append(bottom_right_point)
+
+            segs = [Segment(anchor_point, top_point, len(self.segments)), Segment(top_point, bottom_right_point, len(self.segments)), Segment(bottom_right_point, anchor_point, len(self.segments))]
+            for segment in segs:
+                self.segments.append(segment)
+
+            return [[top_point, bottom_right_point], segs]
+
+        else:
+            raise RuntimeError("No such type of auto-triangle")

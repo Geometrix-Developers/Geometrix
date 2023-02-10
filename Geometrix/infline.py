@@ -37,5 +37,3 @@ class Infline:
             hypotenuse = math.sqrt(vertical ** 2 + horizontal ** 2)
             angle = math.degrees(math.asin(horizontal/hypotenuse))
             return angle
-
-
