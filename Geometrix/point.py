@@ -8,7 +8,7 @@ class Point:
 
     :param x: x-coordinate of the point
     :param y: y-coordinate of the point
-    :param connected_to[]: list of :class:`~point.Point` objects the point is connected to with a line
+    :param connected_to[]: list of :class:`~point.Point` objects the point is connected to with a segment
     :param id: ID of the point
     """
 
@@ -20,7 +20,7 @@ class Point:
 
     def connect(self, point: Point):
         """
-        Function that adds another :class:`~point.Point` to this point's :obj:`connected_to[]`. Not designed to connect :class:`~point.Point` objects, use :obJ:`Workfield.add_line()` instead.
+        Function that adds another :class:`~point.Point` to this point's :obj:`connected_to[]`. Not designed to connect :class:`~point.Point` objects, use :obJ:`Workfield.add_segment()` instead.
 
         :param point: :class:`~point.Point` to connect to this point
         :return: nothing

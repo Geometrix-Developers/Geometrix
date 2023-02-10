@@ -8,8 +8,8 @@ Points
 .. automodule:: Geometrix.point
     :members:
 
-Lines
------
+Segments
+--------
 .. automodule:: Geometrix.segment
    :members:
 

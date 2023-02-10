@@ -228,9 +228,12 @@ class Workfield:
         Function to automatically create an isosceles (type 0), equilateral (type 1) or right-angled (type 2) triangle.
 
         The given point is automatically taken as the bottom left of the triangle, and the entire body of the triangle, in all three types, is created in x and y coordinates higher than the ones of the given point. One of the two newly created points will lie on the same y-coordinate as the given point, and the other will be above.
+
         :param type: Type of triangle (0, 1 ,2)
-        :param args: Type 0: ID of bottom left point, size of the equal angles, lengths of equal sides; Type 1: If of bottom left point, side length; Type 2: ID of bottom left point, horizontal side length, vertical side length
-        :return: two lists nested in the main list, like this: [[new_point1 (top), new_point2 (bottom right)], [new_segment_1 (given point -> top), new_segment2 (top -> bottom right), new_segment3 (bottom_right -> given point]]
+        :param args:    | **Type 0:** ID of bottom left point, size of the equal angles, lengths of equal sides;
+                        | **Type 1:** If of bottom left point, side length;
+                        | **Type 2:** ID of bottom left point, horizontal side length, vertical side length
+        :return: two lists nested in the main list, like this: `[[new_point1 (top), new_point2 (bottom right)], [new_segment_1 (given point -> top), new_segment2 (top -> bottom right), new_segment3 (bottom_right -> given point]]`
         """
         if type in ["isosceles", 0, "0"]:
             bottom_left_point_id = args[0]
