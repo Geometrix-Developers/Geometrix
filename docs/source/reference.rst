@@ -7,3 +7,4 @@ Reference
 
    classes.rst
    functions.rst
+   logger.rst

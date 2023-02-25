@@ -1,8 +1,12 @@
+import os
+
 from Geometrix.point import Point
 from Geometrix.segment import Segment
 from Geometrix.circle import Circle
 from Geometrix.infline import Infline
+from Geometrix.logging import Logger
 import math
+import datetime
 
 
 class Workfield:
@@ -14,12 +18,31 @@ class Workfield:
     :param points[]: list of all :obj:`~point.Point` objects on the workfield
     :param lines[]: list of all :obj:`~line.Line` objects on the workfield
     :param circles[]: list of all :obj:`~circle.Circle` objects on the workfield
+    :param logger: the workfield's Logger object. If logging is turned off, a fake logger is created. To change logger setting, edit this attribute (e.g field.logger.log_time = True will add timestamps to logs). The logger's settings can be found on the logger documentation page.
     """
-    def __init__(self):
+    def __init__(self, log=False, msg=True):
+        if msg:
+            print("Thank you for using Geometrix. For docs, go to https://geometrix-developers.github.io/Geometrix-Website/html/index.html. To disable guidance messages, add the msg=False attribute to your Workfield (e.g Field = Workfield(msg=False)).")
+
         self.points = []
         self.segments = []
         self.circles = []
         self.inflines = []
+        self.log = log
+
+        class FakeLogger:
+            @staticmethod
+            def log(text):
+                pass
+
+        self.logger = FakeLogger()
+
+        if log:
+            if msg:
+                print("You have initiated the workfield in debug mode. All actions you take will be logged in the Log file created in the current working directory. Note: to disable guidance messages, add the msg=False attribute to your Workfield (e.g Field = Workfield(msg=False)).")
+
+            self.logger = Logger()
+            self.logger.no_pre_msg_log(f"Program start at {datetime.datetime.utcnow()} by {os.getlogin()}")
 
     def add_point(self, x, y):
         """
@@ -33,7 +56,9 @@ class Workfield:
         point = Point(x, y, len(self.points))
         self.points.append(point)
 
+        self.logger.log(f"Added point at {x, y} with ID {len(self.points) - 1}")
         return point
+
 
     def add_segment(self, point1_index, point2_index):
         """
@@ -47,7 +72,9 @@ class Workfield:
             point1 = self.points[point1_index]
             point2 = self.points[point2_index]
         except:
+            self.logger.log("Error while creating segment")
             raise RuntimeError("Point not found")
+
 
         self.points[point1_index].connect(point2)
         self.points[point2_index].connect(point1)
@@ -55,6 +82,7 @@ class Workfield:
         segment = Segment(point1, point2, len(self.segments))
         self.segments.append(segment)
 
+        self.logger.log(f"Created segment from points {point1_index} and {point2_index} with ID {len(self.segments) - 1}")
         return segment
 
     def add_triangle(self, p1_id, p2_id, p3_id):
@@ -76,6 +104,7 @@ class Workfield:
             point2 = self.points[p2_id]
             point3 = self.points[p3_id]
         except:
+            self.logger.log("Error while creating triangle")
             raise RuntimeError("Point not found")
 
         self.points[p1_id].connect(point2)
@@ -92,6 +121,7 @@ class Workfield:
         line3 = Segment(point1, point3, len(self.segments))
         self.segments.append(line3)
 
+        self.logger.log(f"Created triangle (three segments) with IDs {line1.id}, {line2.id} and {line3.id}")
         return [line1, line2, line3]
 
     def add_quadrilateral(self, p1_id, p2_id, p3_id, p4_id):
@@ -120,6 +150,7 @@ class Workfield:
             point3 = self.points[p3_id]
             point4 = self.points[p4_id]
         except:
+            self.logger.log("Error creating quadrilateral")
             raise RuntimeError("Point not found")
 
         self.points[p1_id].connect(point2)
@@ -138,6 +169,7 @@ class Workfield:
         self.points[p1_id].connect(point4)
         line4 = Segment(point4, point1, len(self.segments))
 
+        self.logger.log(f"Created quadrilateral (four segments) with IDs {[line1.id, line2.id, line3.id, line4.id]}")
         return [line1, line2, line3, line4]
 
     def add_circle(self, centre_point_id, radius):
@@ -152,9 +184,12 @@ class Workfield:
         try:
             centre = self.points[centre_point_id]
         except:
+            self.logger.log("Error creating circle")
             raise RuntimeError("Centre point not found")
 
         circle = Circle(centre, radius, len(self.circles))
+
+        self.logger.log(f"Created circle at point {centre_point_id}")
         return circle
 
     def add_point_angle_distance(self, anchor_point_id, angle, distance):
@@ -173,10 +208,12 @@ class Workfield:
         try:
             anchor_point = self.points[anchor_point_id]
         except:
+            self.logger.log("Error creating point")
             raise RuntimeError("Point not found")
 
         new_point = Point(anchor_point.x + horizontal_leg, anchor_point.y + vertical_leg, len(self.points))
         self.points.append(new_point)
+        self.logger.log(f"Created point from anchor at {new_point.x, new_point.y} with ID {new_point.id}")
         return new_point
 
     def add_infline(self, type, *args):
@@ -195,6 +232,7 @@ class Workfield:
         elif str(type) in ["1", "points", "two points"]:
             type = 1
         else:
+            self.logger.log("Error creating infline")
             raise RuntimeError("Type must either be 0, '0', 'angle' for angle-based inflines, or 1, '1', 'points', 'two points' for point-based inflines.")
 
         if type == 0:
@@ -204,10 +242,12 @@ class Workfield:
             try:
                 centre_point = self.points[centre_point_id]
             except:
+                self.logger.log("Error creating infline")
                 raise RuntimeError("Point not found")
 
             new_infline = Infline(type, centre_point, angle, len(self.inflines))
             self.inflines.append(new_infline)
+            self.logger.log(f"Created infline with ID {new_infline.id}")
             return new_infline
 
         else:
@@ -217,10 +257,12 @@ class Workfield:
                 point1 = self.points[p1_id]
                 point2 = self.points[p2_id]
             except:
+                self.logger.log("Error creating infline")
                 raise RuntimeError("Point(s) not found")
 
             new_infline = Infline(type, point1, point2, len(self.inflines))
             self.inflines.append(new_infline)
+            self.logger.log(f"Created infline with ID {new_infline.id}")
             return new_infline
 
     def auto_triangle(self, type, *args):
@@ -244,6 +286,7 @@ class Workfield:
             try:
                 anchor_point = self.points[bottom_left_point_id]
             except:
+                self.logger.log(f"Error creating triangle")
                 raise RuntimeError("Point not found")
 
             bottom_right_point = Point(anchor_point.x, anchor_point.y+horizontal_side_length, len(self.points))
@@ -264,6 +307,7 @@ class Workfield:
             self.points.append(top_point)
             self.points.append(bottom_right_point)
 
+            self.logger.log(f"Created auto-triangle")
             return [[top_point, bottom_right_point], [seg1, seg2, seg3]]
 
         elif type in ["equilateral", 1, "1"]:
@@ -274,6 +318,7 @@ class Workfield:
                 anchor_point = self.points[bottom_left_point_id]
 
             except:
+                self.logger.log(f"Error creating auto-triangle")
                 raise RuntimeError("Point not found")
 
             bottom_right_point = Point(anchor_point.x, anchor_point.y+side_length, len(self.points))
@@ -294,6 +339,7 @@ class Workfield:
             self.points.append(top_point)
             self.points.append(bottom_right_point)
 
+            self.logger.log(f"Created auto-triangle")
             return [[top_point, bottom_right_point], segs]
 
         elif type in ["right-angled", 2, "2"]:
@@ -305,6 +351,7 @@ class Workfield:
                 anchor_point = self.points[bottom_left_point_id]
 
             except:
+                self.logger.log(f"Error creating auto-triangle")
                 raise RuntimeError("Point not found")
 
             top_point = Point(anchor_point.x, anchor_point.y+vertical_side_length, len(self.points))
@@ -321,7 +368,9 @@ class Workfield:
             for segment in segs:
                 self.segments.append(segment)
 
+            self.logger.log(f"Created auto-triangle")
             return [[top_point, bottom_right_point], segs]
 
         else:
+            self.logger.log(f"Error creating auto-triangle")
             raise RuntimeError("No such type of auto-triangle")
